@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import supabase from '../utils/supabase'
-import { Link } from 'react-router-dom'
-function Signup() {
+import { Link, useNavigate } from 'react-router-dom'
+
+function Login() {
 
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        
         const formData = new FormData(e.currentTarget);
         const email = formData.get('email');
         const password = formData.get('password');
@@ -17,9 +20,13 @@ function Signup() {
         })
 
         if (error) {
-            setError(error.message);
-            return;
+          setError(error.message);
+          return;
+        } else {
+          setError(null);
+          navigate('/dashboard');
         }
+;
         
     }
 
@@ -90,4 +97,4 @@ function Signup() {
     );
 }
 
-export default Signup;
+export default Login;
