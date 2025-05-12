@@ -11,15 +11,16 @@ function Signup() {
         const email = formData.get('email');
         const password = formData.get('password');
 
-        try {
-            const { data, error } = await supabase.auth.signUp({
-                email: email,
-                password: password
-            })
-        } catch (error) {
-            console.error(error)
-            setError(error.message)
+        const { data, error } = await supabase.auth.signUp({
+            email: email,
+            password: password
+        })
+
+        if (error) {
+            setError(error.message);
+            return;
         }
+        
     }
 
     return (
@@ -29,6 +30,8 @@ function Signup() {
                     Sign in to your account
                 </h2>
             </div>
+
+            {error && <p className="text-red-500 text-center m-5">{error}</p>}
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -73,7 +76,7 @@ function Signup() {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
                             Sign in
                         </button>
