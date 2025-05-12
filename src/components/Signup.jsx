@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import supabase from '../utils/supabase'
+import { Link } from 'react-router-dom'
 
 function Signup() {
 
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -18,21 +20,23 @@ function Signup() {
 
         if (error) {
             setError(error.message);
-            return;
+            setSuccess(null);
+        } else {
+            setSuccess("Account created successfully");
+            setError(null);
         }
-        
     }
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                    Sign in to your account
+                    Sign up to Supabase
                 </h2>
             </div>
 
             {error && <p className="text-red-500 text-center m-5">{error}</p>}
-
+            {success && <p className="text-green-500 text-center m-5">{success} | <Link to="/">Login</Link></p>}
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
@@ -78,7 +82,7 @@ function Signup() {
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                            Sign in
+                            Submit
                         </button>
                     </div>
                 </form>

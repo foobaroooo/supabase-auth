@@ -1,15 +1,31 @@
 import './App.css'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Dashboard from './components/Dashboard';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+]);
 
 function App() {
   return (
     <div>
-      <h1>Supabase Auth</h1>
-      <Signup />
+      <RouterProvider router={router} />
     </div>
   )
 }
